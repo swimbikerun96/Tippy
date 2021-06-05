@@ -1,0 +1,60 @@
+<MyGrid>:
+
+	canvas.before:
+		Color:
+			rgba: (0,.188,0,1)
+		Rectangle:
+			pos: self.pos
+			size: self.size
+
+	GridLayout:
+		cols:1
+		size: root.width, root.height
+		
+		GridLayout:
+			cols:2
+	
+			Label:
+				font_size: 32
+				text: "Bill Amount: "
+				color: 0,.5,0,1
+			Label:
+				id: bill_label
+				font_size: 64
+				
+		GridLayout:
+			cols:1
+			
+			Slider:
+				id: bill_slide
+				min:0
+				max:100
+				on_value: bill_label.text = "$" + str(round(self.value, 2))
+				on_value: root.slide(*args)
+		
+		GridLayout:
+			cols:2
+			
+			Label:
+				font_size: 32
+				text: "Tip Percentage: "
+				color: 0,.5,0,1
+			Label:
+				id: tip_label
+				font_size: 64
+				
+		GridLayout:
+			cols:1
+			
+			Slider:
+				id: tip_slide
+				min:0
+				max:25	
+				on_value: tip_label.text = str(int(self.value)) + "%"
+				on_value: root.slide(*args)
+		
+		Label:
+			id: final_bill
+			text: """Please Specify a Bill Amount and a Tip Percentage"""
+			font_size: 32
+			multiline:True
